@@ -1,0 +1,8 @@
+@startuml "Диаграмма вариантов использования"
+
+actor "Специалист" as specialist
+usecase first 
+
+specialist --> first
+
+@endunl
