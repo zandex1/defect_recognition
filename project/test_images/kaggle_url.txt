@@ -1,0 +1,5 @@
+PCB-P: Printed Circuit Boards at Perspectives
+https://www.kaggle.com/datasets/benmalin/pcb-p-printed-circuit-boards-at-perspectives?select=PCB-P+Dataset
+Включает в себя 2 ахрива для обучения и тестирования, 
+в каждом из которых по 25 видов углов съемки печатных плат.
+Общий вес изображений 65.53 Гб

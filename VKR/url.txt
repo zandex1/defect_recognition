@@ -1,0 +1,13 @@
+Разновидности кинематик FDM 3D-принтеров https://3d-diy.ru/wiki/3d-printery/raznovidnosti-kinematik-fdm-3d-printerov/
+Магистрант из КФУ https://sciencemon.ru/office/org/blog/262507/
+ЧПУ на ардуино https://top3dshop.ru/blog/arduino-cnc-machine.html
+Входной контроль печатных плат. Виды дефектов https://industry-hunter.com/baza-znaniy/vhodnoj-kontrol-pecatnyh-plat-vidy-defektov
+Распознавание дефектов печатной платы (PCB) https://russianblogs.com/article/5851774796/
+Станки для распознавания https://www.smttech.ru/catalog/oborudovanie/inspektsiya-pechatnykh-uzlov/avtomaticheskaya-opticheskaya-inspektsiya-aoi/oflayn-sistema-aoi-3d-model-eagle-3d-8800tl/#anchor_main
+QT + arduino https://blog.altuninvv.ru/index.php/яп/qt/настройка-подключение-чтение-символов-взаимодействие-с-arduino-через-последовательный-порт
+EBB AliExpress https://aliexpress.ru/item/32967896875.html?spm=.search_results.16.4a6b69de01dgo5
+CVAT https://habr.com/ru/articles/677484/
+CoreXY arduino https://www.instructables.com/CoreXY-CNC-Plotter/
+OpenCV настройки камер https://docs.opencv.org/3.4/d4/d15/group__videoio__flags__base.html#ggaeb8dd9c89c10a5c63c139bf7c4f5704dafb6cd2b43344f0458c13863354989623
+EBB https://python.hotexamples.com/examples/ebb_serial/-/command/python-command-function-examples.html
+EBB (EiBotBoard) Command Set http://evil-mad.github.io/EggBot/ebb.html#EM
