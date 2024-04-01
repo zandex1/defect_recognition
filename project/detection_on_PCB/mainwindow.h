@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QDebug>
 #include "createproject.h"
 
 QT_BEGIN_NAMESPACE
@@ -18,12 +19,18 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+
+
 private slots:
     void on_mb_create_triggered();
 
     void on_mb_open_triggered();
 
     void on_mb_settings_triggered();
+
+signals:
+    void signal_show_create();
 
 private:
     Ui::MainWindow *ui;

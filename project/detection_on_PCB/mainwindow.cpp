@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    this->setWindowTitle("Основное окно");
     ui->setupUi(this);
 
     create_project = new CreateProject();
