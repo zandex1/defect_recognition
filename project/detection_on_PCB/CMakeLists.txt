@@ -24,7 +24,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui)
 
 
 set(PROJECT_SOURCES
-        main.cpp
+
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
@@ -36,6 +36,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         createproject.h createproject.cpp createproject.ui
         filebrowser.h filebrowser.cpp filebrowser.ui
+        camerasettings.h camerasettings.cpp camerasettings.ui
+        openproject.h openproject.cpp openproject.ui
+
 
     )
 # Define target properties for Android with Qt 6 as:

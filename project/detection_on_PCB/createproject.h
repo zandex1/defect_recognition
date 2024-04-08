@@ -31,6 +31,9 @@ private slots:
 
     void closeEvent(QCloseEvent *event);
 
+signals:
+    void SignalPath(QString);
+
 private:
     Ui::CreateProject *ui;
     FileBrowser *fileBrowser;

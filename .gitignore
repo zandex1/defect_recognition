@@ -1,1 +1,2 @@
 project/build-detection_on_PCB-Desktop-Debug/
+python test/__pycache__

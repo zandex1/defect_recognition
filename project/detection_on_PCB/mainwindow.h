@@ -3,7 +3,12 @@
 
 #include <QMainWindow>
 #include <QDebug>
+#include <QFile>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonArray>
 #include "createproject.h"
+#include "openproject.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,7 +25,7 @@ public:
     ~MainWindow();
 
 public slots:
-
+    void set_Project(QString sPath);
 
 private slots:
     void on_mb_create_triggered();
@@ -35,5 +40,6 @@ signals:
 private:
     Ui::MainWindow *ui;
     CreateProject *create_project;
+    OpenProject *open_project;
 };
 #endif // MAINWINDOW_H
