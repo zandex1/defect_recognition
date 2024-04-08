@@ -1,2 +1,3 @@
 project/build-detection_on_PCB-Desktop-Debug/
-python test/__pycache__
+project/build-detection_on_PCB-Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/
+project_python/__pycache__
