@@ -13,7 +13,7 @@ class MainWindow:
         
         self.menubar = Menu(self.main_window,background='white', foreground='black', activebackground='white', activeforeground='black')
         self.file = Menu(self.menubar,tearoff=0, background='white', foreground='black')
-        self.file.add_command(label='Создать', command='')
+        self.file.add_command(label='Создать', command=self.create_project)
         self.file.add_command(label='Открыть', command='')
         self.file.add_command(label='Настройки', command='')
         self.menubar.add_cascade(label='Файл', menu=self.file)
@@ -40,6 +40,7 @@ class MainWindow:
         self.notebook.add(self.alignment, text="Юстировка")
         self.notebook.add(self.scanning, text="Сканирование")
         self.notebook.add(self.recognition, text='Распознавание')
+        
         """self.db_dir = './db'
         if not os.path.exists(self.db_dir):
             os.mkdir(self.db_dir)"""
@@ -71,10 +72,36 @@ class MainWindow:
 
         self.register_new_user_capture = self.most_recent_capture_pil.copy()
 
+    def create_project(self):
+        createproject = CreateProject()
+    
     def start(self):
         self.main_window.mainloop()
 
+class OpenProejct:
+    def __init__(self) -> None:
+        pass
 
+class CreateProject:
+    def __init__(self) -> None:
+        top = Toplevel()
+        self.frame = Frame(top)
+        
+        var = StringVar()
+        entry = Entry(top, textvariable=var)
+        entry.pack(padx=60,pady=50)
+        
+        
+        self.frame.pack(padx=10,pady=10)
+    
+class FileBrowser:
+    def __init__(self) -> None:
+        pass
+
+class Settings:
+    def __init__(self) -> None:
+        settings_window = Toplevel()
+        self.frame = Frame(settings_window)
 
 if __name__ == "__main__":
     app = MainWindow()
