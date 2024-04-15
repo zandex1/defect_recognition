@@ -1,6 +1,6 @@
+import logging as logger
 from distutils.version import LooseVersion
 import serial
-import logging as logger
 
 def findPort():
     print("try")
