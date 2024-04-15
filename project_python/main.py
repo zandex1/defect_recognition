@@ -11,6 +11,11 @@ class MainWindow:
         self.main_window.geometry("1200x520+350+100")
         self.main_window.title('Гланое окно')
         
+        self.alignment_enable = True
+        self.scanning_enable = False
+        self.recognition_enable = False
+        
+        
         self.menubar = Menu(self.main_window,background='white', foreground='black', activebackground='white', activeforeground='black')
         self.file = Menu(self.menubar,tearoff=0, background='white', foreground='black')
         self.file.add_command(label='Создать', command=self.create_project)
@@ -26,7 +31,7 @@ class MainWindow:
         self.scanning = ttk.Frame(self.notebook)
         self.recognition = ttk.Frame(self.notebook)
                     
-        self.webcam_label = util.get_img_label(self.alignment)
+        self.webcam_label = Label(self.alignment)
         self.webcam_label.grid()
                 
         
@@ -43,30 +48,25 @@ class MainWindow:
 
     def add_webcam(self, label):
 
-        if 'cap' not in self.__dict__:
-            self.cap = cv2.VideoCapture(0)
+        self.cap = util.get_cap()
         
         self._label = label
         self.process_webcam()
 
     def process_webcam(self):
         ret, frame = self.cap.read()
-
-        self.most_recent_capture_arr = frame
-        img_ = cv2.cvtColor(self.most_recent_capture_arr, cv2.COLOR_BGR2RGB)
-        self.most_recent_capture_pil = Image.fromarray(img_)
-        imgtk = ImageTk.PhotoImage(image=self.most_recent_capture_pil)
-        self._label.imgtk = imgtk
-        self._label.configure(image=imgtk)
+        if self.notebook.select() == '.!notebook.!frame':
+            self.most_recent_capture_arr = frame
+            img_ = cv2.cvtColor(self.most_recent_capture_arr, cv2.COLOR_BGR2RGB)
+            self.most_recent_capture_pil = Image.fromarray(img_)
+            imgtk = ImageTk.PhotoImage(image=self.most_recent_capture_pil)
+            self._label.imgtk = imgtk
+            self._label.configure(image=imgtk)
+            print('ttt')
+        #elif self.notebook.select() == '.!notebook.!frame1':
+              
 
         self._label.after(20, self.process_webcam)
-
-    def add_img_to_label(self, label):
-        imgtk = ImageTk.PhotoImage(image=self.most_recent_capture_pil)
-        label.imgtk = imgtk
-        label.configure(image=imgtk)
-
-        self.register_new_user_capture = self.most_recent_capture_pil.copy()
 
     def create_project(self):
         createproject = CreateProject()
@@ -103,7 +103,8 @@ class Settings:
         settings_window.geometry("1200x520+350+100")
         settings_window.title('Настройки')
         #self.frame = Frame(settings_window)
-
+        
+        
         self.notebook_settings = ttk.Notebook(settings_window)
         self.notebook_settings.grid(row=0, column=0)
         
@@ -227,11 +228,36 @@ class Settings:
         # добавляем фреймы в качестве вкладок
         self.notebook_settings.add(self.settings_videoprocessor, text="Усилитель видеопроцессора")
         self.notebook_settings.add(self.settings_stand, text="Управление стендом")
+        
+        self.webcam_label = Label(settings_window)
+        self.webcam_label.grid(row=0, column=1)
+                
+        self.add_webcam(self.webcam_label)
     
     def start(self):
-        self.frame.mainloop()    
-        
+        self.frame.mainloop()   
+    
+    def add_webcam(self, label):
 
+        self.cap = util.get_cap()
+        
+        self._label = label
+        self.process_webcam()
+
+    def process_webcam(self):
+        ret, frame = self.cap.read()
+
+        self.most_recent_capture_arr = frame
+        img_ = cv2.cvtColor(self.most_recent_capture_arr, cv2.COLOR_BGR2RGB)
+        self.most_recent_capture_pil = Image.fromarray(img_)
+        imgtk = ImageTk.PhotoImage(image=self.most_recent_capture_pil)
+        self._label.imgtk = imgtk
+        self._label.configure(image=imgtk)
+
+        self._label.after(20, self.process_webcam)
+
+        
 if __name__ == "__main__":
+    util.create_camera()
     app = MainWindow()
     app.start()
