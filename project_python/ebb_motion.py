@@ -359,10 +359,10 @@ def limit_stop_btn_config(ser):
         ebb_serial_my.query(ser,"PD,A,2,1\r") # config pin PC7 as input
         
         
-def state_ZERO_XY(ser,pen_up_delay_ms):   #поднять палец и отправить в HOME      
+def state_ZERO_XY(ser):   #поднять палец и отправить в HOME      
               global flag_limit_Y     
               global flag_limit_X
-              sendPenUp(ser, pen_up_delay_ms)
+              #sendPenUp(ser, pen_up_delay_ms)
               
               while (flag_limit_Y==False) :
                  limit_stop_y(ser)
