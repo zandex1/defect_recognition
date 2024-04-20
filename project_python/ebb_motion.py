@@ -16,10 +16,13 @@ def doABMove(port_name, delta_a, delta_b, duration):
     
     if port_name is not None:
         str_output = 'XM,{0},{1},{2}\r'.format(duration, delta_a, delta_b)
+        print(str_output)
         ebb_serial_my.command(port_name, str_output)
 
 def my_pos(port_name):
-    result = ebb_serial_my.usb_query('QS\r') # Query global step position
+    result = ebb_serial_my.command(port_name,'QS\r') # Query global step position
+    print(result)
+    return
     result_list = result.strip().split(",")
     a_pos, b_pos = int(result_list[0]), int(result_list[1])
 
@@ -709,6 +712,14 @@ def heatup_moves(ser):
 #        long_pause(1)
 #        i= not (i)
 #        grid_prepare(ser,17150,12880,8,8 ,i)
+
+def main():
+   global flag_touch_push
+   global flag_limit_X
+   global flag_limit_Y
+   flag_touch_push=False
+   flag_limit_X=False
+   flag_limit_Y=False
         
 if __name__ == "__main__":
    

@@ -19,13 +19,16 @@ from create_project import CreateProject
 class MainWindow:
     def __init__(self):
         self.main_window = Tk()
-        self.main_window.geometry("1200x520+350+100")
+        width= self.main_window.winfo_screenwidth() 
+        height= self.main_window.winfo_screenheight()
+        #setting tkinter window size
+        self.main_window.geometry("%dx%d" % (width, height)) 
         self.main_window.title('Гланое окно')
         
         self.alignment_enable = True
         self.scanning_enable = False
         self.recognition_enable = False
-        
+        ebb_command.main()
         self.x_now=0
         self.y_now=0
         
@@ -55,7 +58,7 @@ class MainWindow:
         self.b_move_down =  Button(self.alignment, text='Вниз', command=self.move_down)
         self.b_move_left =  Button(self.alignment, text='Влево', command=self.move_left)
         self.b_move_right =  Button(self.alignment, text='Вправо', command=self.move_right)
-        self.b_scanning = Button(self.alignment, text='Сканирование', command=self.start_scaninng)
+        self.b_scanning = Button(self.alignment, text='Сканирование', command = self.test)#self.start_scaninng)
         
         self.l_x_cord = Label(self.alignment,text=f'X= {self.x_now} Y= {self.y_now}')
         self.e_value = Entry(self.alignment)
@@ -80,6 +83,9 @@ class MainWindow:
         if not os.path.exists(self.db_dir):
             os.mkdir(self.db_dir)"""
 
+    def test(self):
+        ebb_command.my_pos(self.ser)
+        
     def thred_scan(self):
         t1 = Thread(target=self.capture, args=(self))
         t2 = Thread(target=self.start_scaninng, args=(self))
@@ -107,16 +113,22 @@ class MainWindow:
         
         while y<=self.y_now:
             ebb_command.doABMove(self.ser, self.x_now, 0, 15)
-            ebb_command.doTimedPause(self.ser, 1000)
+            #ebb_command.doTimedPause(self.ser, 1000)
+            time.sleep(3)
             ebb_command.doABMove(self.ser, 0, 10, 15)
             y+=10
-            ebb_command.doTimedPause(self.ser, 1000)
+            #ebb_command.doTimedPause(self.ser, 1000)
+            time.sleep(3)
             
             ebb_command.doABMove(self.ser, self.x_now*-1, 0, 15)
-            ebb_command.doTimedPause(self.ser, 1000)
+            #ebb_command.doTimedPause(self.ser, 1000)
+            time.sleep(3)
+            
             ebb_command.doABMove(self.ser, 0, 10, 15)
             y+=10
-            ebb_command.doTimedPause(self.ser, 1000) 
+            #ebb_command.doTimedPause(self.ser, 1000) 
+            time.sleep(3)
+
         ebb_command.state_ZERO_XY(self.ser)   
         ebb_command.sendEnableMotors(self.ser, 0)    
         self.state = True
@@ -129,64 +141,87 @@ class MainWindow:
         self.y_now=0
         self.l_x_cord['text'] = f'X= {self.x_now} Y= {self.y_now}'
         
-    def move_up(self):
-        if self.x_now + int(self.e_value.get()) <=20000:
+    def move_right(self):
+        if self.x_now + int(self.e_value.get()) <=100000:
             ebb_command.sendEnableMotors(self.ser, 1)
-            ebb_command.doABMove(self.ser, int(self.e_value.get()), 0, 15)
+            ebb_command.doABMove(self.ser, int(self.e_value.get()), 0, 10000)
+            time.sleep(2)
+            #ebb_command.doTimedPause(self.ser, 1000) 
             ebb_command.sendEnableMotors(self.ser, 0)
             self.x_now += int(self.e_value.get())
             self.l_x_cord['text'] = f'X= {self.x_now} Y= {self.y_now}'
-        elif self.x_now!=20000:
+        elif self.x_now!=100000:
             ebb_command.sendEnableMotors(self.ser, 1)
-            ebb_command.doABMove(self.ser, (20000-self.x_now), 0, 15)
+            ebb_command.doABMove(self.ser, (100000-self.x_now), 0, 10000)
+            time.sleep(2)
+            
+            #ebb_command.doTimedPause(self.ser, 1000) 
             ebb_command.sendEnableMotors(self.ser, 0)
-            self.x_now = 20000
+            self.x_now = 100000
             self.l_x_cord['text'] = f'X= {self.x_now} Y= {self.y_now}'
         else:
             showerror(title='Ошибка', message='Конец по оси Х')
     
-    def move_down(self):
+    def move_left(self):
         if self.x_now - int(self.e_value.get())>=0:
             ebb_command.sendEnableMotors(self.ser, 1)
-            ebb_command.doABMove(self.ser, int(self.e_value.get())*-1, 0, 15)
+            ebb_command.doABMove(self.ser, int(self.e_value.get())*-1, 0, 10000)
+            time.sleep(2)
+            
+            #ebb_command.doTimedPause(self.ser, 1000) 
             ebb_command.sendEnableMotors(self.ser, 0)
             self.x_now -=int(self.e_value.get())
             self.l_x_cord['text'] = f'X= {self.x_now} Y= {self.y_now}'
         elif self.x_now != 0:
             ebb_command.sendEnableMotors(self.ser, 1)
-            ebb_command.doABMove(self.ser, 0-self.x_now, 0, 15)
+            ebb_command.doABMove(self.ser, 0-self.x_now, 0, 10000)
+            time.sleep(2)
+            
+            #ebb_command.doTimedPause(self.ser, 1000) 
             ebb_command.sendEnableMotors(self.ser, 0)
             self.x_now = 0
             self.l_x_cord['text'] = f'X= {self.x_now} Y= {self.y_now}'
         else:
             showerror(title='Ошибка', message='Конец по оси Х')
     
-    def move_left(self):
-        if self.y_now + int(self.e_value.get())>=0:
+    def move_up(self):
+        if self.y_now - int(self.e_value.get())>=0:
             ebb_command.sendEnableMotors(self.ser, 1)
-            ebb_command.doABMove(self.ser, 0, int(self.e_value.get())*-1, 15)
+            ebb_command.doABMove(self.ser, 0, int(self.e_value.get())*-1, 10000)
+            time.sleep(2)
+            
+            #ebb_command.doTimedPause(self.ser, 1000) 
             ebb_command.sendEnableMotors(self.ser, 0)   
             self.y_now -=int(self.e_value.get())
             self.l_x_cord['text'] = f'X= {self.x_now} Y= {self.y_now}'
         elif self.y_now !=0:
             ebb_command.sendEnableMotors(self.ser, 1)
-            ebb_command.doABMove(self.ser, 0, 0-self.y_now, 15)
+            ebb_command.doABMove(self.ser, 0, 0-self.y_now, 10000)
+            time.sleep(2)
+            
+            #ebb_command.doTimedPause(self.ser, 1000) 
             ebb_command.sendEnableMotors(self.ser, 0)
             self.y_now = 0
             self.l_x_cord['text'] = f'X= {self.x_now} Y= {self.y_now}'
         else:
             showerror(title='Ошибка', message='Конец по оси Y')
     
-    def move_right(self):
+    def move_down(self):
         if self.y_now + int(self.e_value.get())<=20000:
             ebb_command.sendEnableMotors(self.ser, 1)
-            ebb_command.doABMove(self.ser, 0, int(self.e_value.get()), 15)
+            ebb_command.doABMove(self.ser, 0, int(self.e_value.get()), 10000)
+            time.sleep(2)
+            
+            #ebb_command.doTimedPause(self.ser, 1000) 
             ebb_command.sendEnableMotors(self.ser, 0)
             self.y_now +=int(self.e_value.get())
             self.l_x_cord['text'] = f'X= {self.x_now} Y= {self.y_now}'
         elif self.y_now != 20000:
             ebb_command.sendEnableMotors(self.ser, 1)
-            ebb_command.doABMove(self.ser, 0, 20000-self.y_now, 15)
+            ebb_command.doABMove(self.ser, 0, 20000-self.y_now, 10000)
+            time.sleep(2)
+            
+            #ebb_command.doTimedPause(self.ser, 1000) 
             ebb_command.sendEnableMotors(self.ser, 0)
             self.y_now = 20000
             self.l_x_cord['text'] = f'X= {self.x_now} Y= {self.y_now}'
@@ -202,6 +237,8 @@ class MainWindow:
 
     def process_webcam(self):
         ret, frame = self.cap.read()
+        frame = cv2.line(frame, (650,160),(650,520),(0,0,255),3)
+        frame = cv2.line(frame, (470,340),(830,340),(0,0,255),3)
         if self.notebook.select() == '.!notebook.!frame':
             self.most_recent_capture_arr = frame
             img_ = cv2.cvtColor(self.most_recent_capture_arr, cv2.COLOR_BGR2RGB)
