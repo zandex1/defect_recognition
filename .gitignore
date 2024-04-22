@@ -3,4 +3,6 @@ project/build-detection_on_PCB-Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/
 project_python/__pycache__
 project_python/microcontroller/__pycache__
 Images/
+Images1/
+
 test_tkinter_form/__pycache__
