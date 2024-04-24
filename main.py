@@ -1,12 +1,12 @@
 import cv2
 import glob
-import stitchingcopy as stitching
+import st1 as stitching
 def main():
-    path_images = glob.glob('Images1/*')
+    path_images = glob.glob('out/*')
     images=[]
     
-    images_in_row = 30
-    images_in_coloumn = 10
+    images_in_row = 11
+    images_in_coloumn = 11
     
     for image_path in path_images:
         images.append(image_path)
@@ -16,10 +16,10 @@ def main():
         result = cv2.imread(images[k])
         for j in range(0,images_in_row):
             print(k)
-            
-            result = stitching.main(train_path=images[k+1], query_photo=result,k=k+1)
+            img = cv2.imread(images[k+1])
+            result = stitching.stitch(result, img)
             k+=1
-            
+            cv2.imwrite(f'{k}.jpg',result)
             if k%30 == 0:
                 break 
 

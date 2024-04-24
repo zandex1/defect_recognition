@@ -4,5 +4,6 @@ project_python/__pycache__
 project_python/microcontroller/__pycache__
 Images/
 Images1/
-
+out/
 test_tkinter_form/__pycache__
+__pycache__/
