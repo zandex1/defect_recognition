@@ -3,7 +3,6 @@ import numpy as np
 cv2.ocl.setUseOpenCL(False)
 import warnings
 warnings.filterwarnings('ignore')
-import imutils
 
 def main(train_path, query_photo,k):
     
@@ -45,7 +44,7 @@ def main(train_path, query_photo,k):
     (matches, Homography_Matrix, status) = M
     # print(Homography_Matrix)
 
-    width = query_photo.shape[1] + train_photo.shape[1]
+    width = query_photo.shape[1] + train_photo.shape[1]-800
     height = max(query_photo.shape[0], train_photo.shape[0])
 
     result = cv2.warpPerspective(train_photo, Homography_Matrix, (width, height))
